@@ -106,8 +106,10 @@ optional arguments:
 > File name ends with *C70M60_ScafHeadTail_BX_pairSum.tsv*
 
 ```
-usage: /opt/10x_program/step3_process_samfile.py [-h] -f FASTA [-r RANGE] -s SAM [--max_number_of_scafendcnt SCAFENDCNT]
-                                                 [--min_rp THRESHOLD_OF_BX_RP_PER_END] [--rpN ESTABLISH_COMBINATION_OF_READ_PAIR]
+usage: /opt/10x_program/step3_process_samfile.py [-h] -f FASTA [-r RANGE] -s SAM
+                                                 [--max_number_of_scafendcnt SCAFENDCNT]
+                                                 [--min_rp THRESHOLD_OF_BX_RP_PER_END] 
+                                                 [--rpN ESTABLISH_COMBINATION_OF_READ_PAIR]
                                                  [--BXN ESTABLISH_NUMBER_OF_BX] [-g WITHGAP] [-t THREADS]
 
 positional arguments:
@@ -150,3 +152,96 @@ optional arguments:
                         all threads.(default: 1)
 
 ```
+#### *Run Step I to III altogether*
+This program is the combination of the three parts of the preprocess module:
+
+```
+usage: /opt/10x_program/runStep1to3.py [-h] -f FASTQS -g GENOME --id PROJECTID -o OUTPUT_FOLDER
+                      [-t THREADS] [-a {bwa_mem,kart}] [-q QUALITY]
+                      [-l LENGTH] [--trimr2 {False,True}] [-d NONDUP]
+                      [-c CIGAR_MAP_QUALITY] [-m MAPQ] [-r RANGE]
+                      [-gap WITHGAP] [--detail {False,True}]
+                      [--min_rp THRESHOLD_OF_BX_RP_PER_END]
+                      [--rpN ESTABLISH_COMBINATION_OF_READ_PAIR]
+                      [--BXN ESTABLISH_NUMBER_OF_BX]
+positional arguments:
+  -f FASTQS, --fastqs FASTQS
+                        Input the folder path of FASTQ files which were
+                        produced from longranger mkfastq. Files in the folder
+                        must be named like: [Sample Name]_S1_L00[Lane
+                        Number]_[Read Type]_001.fastq.gz. (see:
+                        https://github.com/10XGenomics/longranger). If your
+                        fastq files are in a different folder, please move to
+                        the same folder. (input file must be in fastq format,
+                        such as .fq or .fastq)
+  -g GENOME, --genome GENOME
+                        Path of genome fasta.
+  --id PROJECTID        Input project name. It will be your output prefix.
+  -o OUTPUT_FOLDER, --output_folder OUTPUT_FOLDER
+                        Output folder path. Your output files will be in this
+                        folder.
+                        
+optional arguments:
+  -h, --help            show this help message and exit
+  -t THREADS, --threads THREADS
+                        Number of threads. Input 0 will use all
+                        threads.[default: 1]
+  -a {bwa_mem,kart}, --aligner {bwa_mem,kart}
+                        Choose one of the following aligners: BWA MEM or Kart,
+                        to align reads. BWA MEM: https://github.com/lh3/bwa,
+                        KART: https://github.com/hsinnan75/Kart.
+                        [default:bwa_mem]
+  -q QUALITY, --quality QUALITY
+                        Input the minimum quality score for quality trimming
+                        of FASTQ files. Same as the option for trim_galore -q
+                        [default:20]
+  -l LENGTH, --length LENGTH
+                        Input the minimum length for quality trimming of FASTQ
+                        files. Same as the option for trim_galore --length
+                        [default:50]
+  --trimr2 {False,True}
+                        (Optional) R2 trimming. For better mapping quality,
+                        choose to trim barcode (16 mer) and adapter (6+1 mer),
+                        overall 23 mer, from R2 prefix. If you choose not to
+                        trim R2, set this parameter to False or 0.
+                        [default:True]
+  -d NONDUP, --deduplicate NONDUP
+                        (Optional) Get non-duplicate read pairs for each
+                        barcode and keep BX size larger than 3 reads. If you
+                        do not want to de-duplicate, please set "-d 0".
+                        [default:3]
+  -c CIGAR_MAP_QUALITY, --CIGAR CIGAR_MAP_QUALITY
+                        CIGAR match quality: count([M=X])/len(seq)*100. From 1
+                        to 100. [default: 70]
+  -m MAPQ, --MAPQ MAPQ  MAPQ score. From 0 to 60. [default: 60]
+  -r RANGE, --range RANGE
+                        The range length of each scaffold Head/Tail.
+                        [default:20000]
+  -gap WITHGAP, --withgap WITHGAP
+                        Determines whether the Head/Tail range is with or
+                        without gap. True means the Head/Tail range will be
+                        counted with gap. If you input [-r 20000], then the
+                        Head/Tail range will be calculated from both ends
+                        (Head/Tail) to 20000 base, and there may be some gaps
+                        in that range (N base). False means the Head/Tail
+                        range will be counted without gap (N base). [default:
+                        True]
+  --detail {False,True}
+                        Print out the details of process log. [default: False]
+  --min_rp THRESHOLD_OF_BX_RP_PER_END
+                        Threshold of BX read pair/per end. The certified
+                        barcode control value. If the value is set as 5, this
+                        means the number of barcodes mapping to genome must be
+                        supported by 6 read pairs. [default:0]
+  --rpN ESTABLISH_COMBINATION_OF_READ_PAIR
+                        Establish Number of barcode read pairs at each end of
+                        the scaffolds. If the value is 10, this means this
+                        program will generate a combination ranging from (1,1)
+                        to (10*,10*). [default:10]
+  --BXN ESTABLISH_NUMBER_OF_BX
+                        Determine the number of barcodes supporting scaffold
+                        ends. If the value is set as 20, this means this
+                        program will generate BX1 to BX20*. [default:20]
+
+```
+### § Main Module 1:
