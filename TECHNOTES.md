@@ -66,5 +66,34 @@ optional arguments:
 **Output:**
 
 - A SAM file of filtered read-to-scaffold alignment with CIGAR match quality >= 70 and Mapping Quality = 60 
-> file name ends with *C70M60.sam*
+> File name ends with *C70M60.sam*
+```
+usage: /opt/10x_program/step2_alignment_andFilter.py [-h] -a {bwa_mem,kart} -g GENOME -f1 FASTQ_R1 -f2 FASTQ_R2 -o OUTPUTPREFIX
+                                                     [-c CIGAR_MAP_QUALITY] [-m MAPQ] [-t THREADS]
+positional arguments:
+  -a {bwa_mem,kart}, --aligner {bwa_mem,kart}
+                        Align reads to scaffolds. Choose one of the following
+                        aligners: BWA MEM or Kart.
+  -g GENOME, --genome GENOME
+                        Path of genome fasta.
+  -f1 FASTQ_R1, --fastqR1 FASTQ_R1
+                        Path of qualified and reformated Fastq R1.
+  -f2 FASTQ_R2, --fastqR2 FASTQ_R2
+                        Path of qualified and reformated Fastq R2.
+  -o OUTPUTPREFIX, --outputPrefix OUTPUTPREFIX
+                        Prefix of output samfile. Do not use "." in this
+                        prefix. ie, -o PROJ_NAME will get PROJ_NAME.sam &
+                        PROJ_NAME_ProperPair.sam & PROJ_NAME_C70M60.sam
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CIGAR_MAP_QUALITY, --CIGAR CIGAR_MAP_QUALITY
+                        CIGAR match quality: count([M=X])/len(seq)*100. From 1
+                        to 100. [default: 70]
+  -m MAPQ, --MAPQ MAPQ  MAPQ score. From 0 to 60. [default: 60]
+  -t THREADS, --threads THREADS
+                        Number of threads. Input 0 will use all
+                        threads.[default: 1]
+
+
+```
 
