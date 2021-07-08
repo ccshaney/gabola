@@ -477,8 +477,58 @@ optional arguments:
 **Output:**
 
 - LAB-scaffolded FASTA file
-> *{draft_assembly_prefix}_LABScaffold.fa*
+> i.e. *{draft_assembly_prefix}_LABScaffold.fa*
 - LAB-scaffolded FASTA file renamed by length
-- > *{draft_assembly_prefix}_LABScaffold_rename.fa*
-Ø  NewScaf.log recording new scaffolds connected by LAB Scaffolding and their components
-Ø   LABScaffold.log
+> i.e. *{draft_assembly_prefix}_LABScaffold_rename.fa*
+- NewScaf.log recording new scaffolds connected by LAB Scaffolding and their components
+- LABScaffold.log
+```
+        usage: /opt/LAB_Scaffolding/Scaffolding.sh
+               -f SCAFFOLD_PAIR -a FASTA [-l MIN_MAPLEN] [-c MIN_MAPIDENTITY] -o OUTDIR
+
+        positional arguments:
+               -f SCAFFOLD_PAIR
+                  Candidate scaffold pairs and shared barcode counts
+                  (C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv)
+               -a FASTA
+                  Draft assembly for LAB scaffolding
+               -o OUTDIR
+                  Output directory (same as Preprocessing.sh)
+
+        optional arguments:
+               -l MIN_MAPLEN
+                  Minimum mapped length for contig on each scaffold end [default=1000]
+               -c MIN_MAPIDENTITY
+                  Mapping identity for contigs on each scaffold end [default=70]
+```
+## § Main Module 4 – GCB Scaffolding:
+
+#### *Step I. Collect barcodes for each candidate scaffold end pair*
+
+**Input:**
+- Scaffold pair TSV file from Preprocess module step III
+- Barcode list on scaffold ends TSV file from Preprocess module step III
+**Output:**
+- New directory HeadTail_BXList/:
+  - Barcode list on head and tail for every scaffold (<scafname>_Head/Tail_BXList)
+- Candidate scaffold pair TSV file (C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv)
+
+```
+        usage: /opt/GCB_Scaffolding/CandidatePair.sh
+               -f SCAFFOLD_PAIR -p BXLIST [-v PAIR_NUM] -o OUTDIR
+
+        positional arguments:
+               -f SCAFFOLD_PAIR
+                  Scaffold pairs and shared barcode counts from Preprocess module step III
+                  (C70M60_ScafA_ScafB_BXCnt.tsv)
+               -p BXLIST
+                  Barcodes on every scaffold end from Preprocess module step III
+                  (C70M60_ScafHeadTail_BX_pairSum.tsv)
+               -o OUTDIR
+                  Output directory
+
+        optional arguments:
+               -v PAIR_NUM
+                  Remove multiple ends, keep top v pairs [default=2]
+  ```
+  
