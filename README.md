@@ -1,6 +1,6 @@
 # GABOLA: A Reliable Gap-Filling Strategy for de novo Chromosome-Level Assembly
 
-##### The docker image of GABOLA is freely accessible at [**our dockerhub website**](https://hub.docker.com/r/lsbnb/gabola)
+##### The docker image of GABOLA is freely accessible on [**our dockerhub website**](https://hub.docker.com/r/lsbnb/gabola)
 
 ## Usage:
 
@@ -48,7 +48,7 @@ As for Scaffolding, GCB is preferably used after LAB as a polishing tool.
 ### I. 10x Genomics Pipeline
 If you only have 10x Genomics linked reads at hand, we propose this pipeline
 
-![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_10x_pipeline_0707.jpg)
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_10x_pipeline_0708.jpg)
 
 ```
        # GCB Gap-Filling
@@ -78,7 +78,7 @@ If you only have 10x Genomics linked reads at hand, we propose this pipeline
 ### II. 10x Genomics & TGS Pipeline
 
 If 10x Genomics linked reads and Third Generation Sequencing long reads are both obtainable, then we suggest this pipeline:
-![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_pipeline_0707.jpg)
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_pipeline_0708.jpg)
 
 ```
        #GCB Gap-Filling 
@@ -109,6 +109,7 @@ If 10x Genomics linked reads and Third Generation Sequencing long reads are both
 ### III. 10x Genomics & Bionano Genomics Pipeline
 
 Pipeline incorporating 10x Genomics linked reads and Bionano Hybrid Scaffold:
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_bionano_pipeline_0708.jpg)
 
 ```
     # GCB Gap-Filling
@@ -136,6 +137,8 @@ Pipeline incorporating 10x Genomics linked reads and Bionano Hybrid Scaffold:
 ```
 ### IV. 10x Genomics & Bionano Genomics & TGS Pipeline
 With all resources mentioned above (10x Genomics linked reads, TGS reads and Bionano Hybrid Scaffold) available, we suggest this pipeline
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_bionano_pipeline_0708.jpg)
+
 ```
      #GCB Gap-Filling
      ### G-contigs.fa could contain (1) Scaffolds in conflict with Bionano cmap (2) Scaffolds unused by Bionano (3) TGS long reads or draft assembly
