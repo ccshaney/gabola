@@ -14,7 +14,7 @@
 > For example, Barcode name: AAAACCCCGTGTGTGT
 > Format: OUTPUT_FOLDER/nonDupFq/split/AAAACCCCGTGTGTGT_1
 ```
-usage: /opt/10x_program/step1_preprocessFastq.py [-h] -f FASTQS --id PROJECTID -o OUTPUT_FOLDER [-q QUALITY] 
+usage: python /opt/10x_program/step1_preprocessFastq.py [-h] -f FASTQS --id PROJECTID -o OUTPUT_FOLDER [-q QUALITY] 
                                                  [-l LENGTH] [--trimr2 {False,True}] [-d NONDUP] [-t THREADS]
 positional arguments:
   -f FASTQS, --fastqs FASTQS
@@ -68,7 +68,7 @@ optional arguments:
 - A SAM file of filtered read-to-scaffold alignment with CIGAR match quality >= 70 and Mapping Quality = 60 
 > File name ends with *C70M60.sam*
 ```
-usage: /opt/10x_program/step2_alignment_andFilter.py [-h] -a {bwa_mem,kart} -g GENOME -f1 FASTQ_R1 -f2 FASTQ_R2 
+usage: python /opt/10x_program/step2_alignment_andFilter.py [-h] -a {bwa_mem,kart} -g GENOME -f1 FASTQ_R1 -f2 FASTQ_R2 
                                                      -o OUTPUTPREFIX [-c CIGAR_MAP_QUALITY] [-m MAPQ] [-t THREADS]
 positional arguments:
   -a {bwa_mem,kart}, --aligner {bwa_mem,kart}
@@ -106,7 +106,7 @@ optional arguments:
 > File name ends with *C70M60_ScafHeadTail_BX_pairSum.tsv*
 
 ```
-usage: /opt/10x_program/step3_process_samfile.py [-h] -f FASTA [-r RANGE] -s SAM
+usage: python /opt/10x_program/step3_process_samfile.py [-h] -f FASTA [-r RANGE] -s SAM
                                                  [--max_number_of_scafendcnt SCAFENDCNT]
                                                  [--min_rp THRESHOLD_OF_BX_RP_PER_END] 
                                                  [--rpN ESTABLISH_COMBINATION_OF_READ_PAIR]
@@ -156,7 +156,7 @@ optional arguments:
 This program is the combination of the three parts of the preprocess module:
 
 ```
-usage: /opt/10x_program/runStep1to3.py [-h] -f FASTQS -g GENOME --id PROJECTID -o OUTPUT_FOLDER
+usage: python /opt/10x_program/runStep1to3.py [-h] -f FASTQS -g GENOME --id PROJECTID -o OUTPUT_FOLDER
                       [-t THREADS] [-a {bwa_mem,kart}] [-q QUALITY]
                       [-l LENGTH] [--trimr2 {False,True}] [-d NONDUP]
                       [-c CIGAR_MAP_QUALITY] [-m MAPQ] [-r RANGE]
@@ -245,3 +245,19 @@ optional arguments:
 
 ```
 ### § Main Module 1:
+#### *Step I. Produce barcode list for each gap*
+
+**Input:**
+
+- Read-to-scaffold alignment SAM file from Preprocess step II
+- Draft assembly FASTA file
+
+**Output:**
+
+- Directory for each scaffold containing:
+  - Position of reads mapped onto this scaffold 
+  > C70M60ReadPos.tsv
+> Position of gaps on this scaffold (gap_pos_<scafname>.txt)
+> Barcode list of each gap (gapRange_BXs.txt)
+-   ProduceBXList_Record.log
+
