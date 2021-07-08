@@ -57,3 +57,14 @@ optional arguments:
   -h, --help            show this help message and exit
 
 ```
+#### *Step II. Filter alignment by CIGAR match quality and MAPQ score*
+
+**Input:**
+
+- Draft assembly
+
+**Output:**
+
+- A SAM file of filtered read-to-scaffold alignment with CIGAR match quality >= 70 and Mapping Quality = 60 
+> file name ends with *C70M60.sam*
+
