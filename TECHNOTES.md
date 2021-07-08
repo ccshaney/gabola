@@ -311,7 +311,7 @@ optional arguments:
 > i.e. *scaffolds_gapID.fasta*
 - Assemble_JobID_Record.log
 ```
-        Usage: /opt/GABOLA_GapFilling/Assemble.sh -r FASTQ [-t THREADS] [-q JobQueue_NUM ] -o OUTDIR
+        Usage: /opt/LAB_GapFilling/Assemble.sh -r FASTQ [-t THREADS] [-q JobQueue_NUM ] -o OUTDIR
 
               positional arguments:
                          -r FASTQ
@@ -339,7 +339,7 @@ optional arguments:
 - LABFill_Record.log
 
 ```
-        usage: /opt/GABOLA_GapFilling/Fill.sh -a FASTA [-n NUM ] [-t THREADS ] [-l MIN_LEN]
+        usage: /opt/LAB_GapFilling/Fill.sh -a FASTA [-n NUM ] [-t THREADS ] [-l MIN_LEN]
         [-c MIN_COV] [-d MAX_DIS] [-M MIN_MAPLEN] [-I MIN_MAPIDENTITY] -o OUTDIR
 
         positional arguments:
