@@ -244,7 +244,7 @@ optional arguments:
                         program will generate BX1 to BX20*. [default:20]
 
 ```
-### § Main Module 1:
+### § Main Module 1 - LAB Gap Filling:
 #### *Step I. Produce barcode list for each gap*
 
 **Input:**
@@ -299,4 +299,107 @@ optional arguments:
                     Each list containing the gaps to be filled with the format of <scafname><gapID>
 
 ```
+#### *Step II. Assemble contigs for each gap*
+
+**Input:**
+
+- Non-duplicate split reads FASTQ file produced by Preprocess Step I
+
+**Output:**
+
+- Directory for each scaffold containing a FASTA file of assembled contigs for each gap
+> i.e. *scaffolds_gapID.fasta*
+- Assemble_JobID_Record.log
+```
+        Usage: /opt/GABOLA_GapFilling/Assemble.sh -r FASTQ [-t THREADS] [-q JobQueue_NUM ] -o OUTDIR
+
+              positional arguments:
+                         -r FASTQ
+                            Directory for non-duplicated split fastq from Preprocess step I
+                         -o OUTDIR
+                            Output directory (same as outdir of ProduceBXList.sh)
+
+              optional arguments:
+                         -t THREADS
+                            Number of tasks/gaps per run (one task occupies 10 threads);
+                            depending on how many available CPUs [default=8]
+                         -q JobQueue_NUM
+                            Index of Task queue [default=1]
+
+```
+#### *Step III. Fill gaps with best aligned contig*
+
+**Input**
+- Draft assembly FASTA file
+
+**Output**
+
+- Gap-filled FASTA file
+> *i.e. {draft_assembly_prefix}_LABFilled.fa*
+- LABFill_Record.log
+
+```
+        usage: /opt/GABOLA_GapFilling/Fill.sh -a FASTA [-n NUM ] [-t THREADS ] [-l MIN_LEN]
+        [-c MIN_COV] [-d MAX_DIS] [-M MIN_MAPLEN] [-I MIN_MAPIDENTITY] -o OUTDIR
+
+        positional arguments:
+                   -a FASTA
+                      Draft assembly FASTA file to be gap-filled
+                   -o OUTDIR
+                      Output directory (same as outdir of ProduceBXList.sh)
+
+        optional arguments:
+                   -n NUM
+                      Top n scaffolds [default=ALL]
+                   -t THREADS
+                      Number of threads [default=8]
+                   -l MIN_LEN
+                      Minimum length of assembled contigs [default=1000]
+                   -c MIN_COV
+                      Minimum coverage of assembled contigs, this property is produced by
+                      SPAdes assembler [default=2]
+                   -d MAX_DIS
+                      Maximum distance between flanking and contigs [default=30000]
+                   -M MIN_MAPLEN
+                      Minimum mapped length of contigs [default=300]
+                   -I MIN_MAPIDENTITY
+                      Minimum mapping identity of contigs [default=80]
+```
+### § Main Module 2 – GCB Gap Filling:
+
+#### *Produce contigs with other sequence assemblers and fill gaps*
+
+**Input:**
+- Draft assembly FASTA file
+- G-contigs FASTA file
+
+**Output:**
+- For each scaffold:
+  - contigRange.txt
+  - gapFilling.log
+- GCBFilled_Record.log
+- Gap-filled FASTA file
+> File name as *{draft_assembly_prefix}_GCBFilled.fasta*
+
+```
+        usage: /opt/GCB_GapFilling/Fill.sh -a FASTA -x G_CONTIGS [-t THREADS] -o OUTDIR
+        [-M MIN_MAPLEN] [-I MIN_MAPIDENTITY]
+
+        positional arguments:
+                   -a FASTA
+                      Draft assembly FASTA file to be filled
+                   -x G_CONTIGS
+                      Scaffolds/contigs from other assemblies or long reads for filling in gaps
+                   -o OUTDIR
+                      Output directory
+
+        optional arguments:
+                   -t THREADS
+                      Number of threads [default=16]
+                   -M MIN_MAPLEN
+                      Minimum mapped length of contigs [default=500]
+                   -I MIN_MAPIDENTITY
+                      Minimum mapping identity of contigs [default=80]
+```
+
 
