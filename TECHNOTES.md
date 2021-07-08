@@ -68,8 +68,8 @@ optional arguments:
 - A SAM file of filtered read-to-scaffold alignment with CIGAR match quality >= 70 and Mapping Quality = 60 
 > File name ends with *C70M60.sam*
 ```
-usage: /opt/10x_program/step2_alignment_andFilter.py [-h] -a {bwa_mem,kart} -g GENOME -f1 FASTQ_R1 -f2 FASTQ_R2 -o OUTPUTPREFIX
-                                                     [-c CIGAR_MAP_QUALITY] [-m MAPQ] [-t THREADS]
+usage: /opt/10x_program/step2_alignment_andFilter.py [-h] -a {bwa_mem,kart} -g GENOME -f1 FASTQ_R1 -f2 FASTQ_R2 
+                                                     -o OUTPUTPREFIX [-c CIGAR_MAP_QUALITY] [-m MAPQ] [-t THREADS]
 positional arguments:
   -a {bwa_mem,kart}, --aligner {bwa_mem,kart}
                         Align reads to scaffolds. Choose one of the following
@@ -93,7 +93,60 @@ optional arguments:
   -t THREADS, --threads THREADS
                         Number of threads. Input 0 will use all
                         threads.[default: 1]
+```
+#### *Step III. Generate barcode information on each scaffold*
 
+**Input:**
+- Read-to-assembly filtered SAM file from Step II
+
+**Output:**
+- A TSV file for possible scaffold pairs and shared barcode counts 
+> File name ends with *C70M60_ScafA_ScafB_BXCnt.tsv*
+- A TSV file for barcodes on every scaffold end
+> File name ends with *C70M60_ScafHeadTail_BX_pairSum.tsv*
 
 ```
+usage: /opt/10x_program/step3_process_samfile.py [-h] -f FASTA [-r RANGE] -s SAM [--max_number_of_scafendcnt SCAFENDCNT]
+                                                 [--min_rp THRESHOLD_OF_BX_RP_PER_END] [--rpN ESTABLISH_COMBINATION_OF_READ_PAIR]
+                                                 [--BXN ESTABLISH_NUMBER_OF_BX] [-g WITHGAP] [-t THREADS]
 
+positional arguments:
+  -f FASTA, --fasta FASTA
+                        Reference genome. (fasta format, named as .fa or .fasta)
+  -s SAM, --sam SAM     Path of the SAM file you want to process.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -r RANGE, --range RANGE
+                        Range length of each scaffold Head/Tail.
+                        [default:20000]
+  --max_number_of_scafendcnt SCAFENDCNT
+                        Max number of Scaffold ends sharing the same BX.
+                        [default:0]
+  --min_rp THRESHOLD_OF_BX_RP_PER_END
+                        Threshold of BX read pair/per end. The certified
+                        barcode control value. If the value is set to 5 means
+                        barcode mapping to genome must be supported by 6 read
+                        pair. [default:0]
+  --rpN ESTABLISH_COMBINATION_OF_READ_PAIR
+                        Establish Number of barcode read pair at each scaffold
+                        end. If value is set to 10 means this program will
+                        generate combination from (1,1) to (10*,10*).
+                        [default:10]
+  --BXN ESTABLISH_NUMBER_OF_BX
+                        Determines the number of barcode supporting pairs of
+                        scaffold end. If the value is set to 20 means this
+                        program will generate BX1 to BX20*. [default:20]
+  -g WITHGAP, --withgap WITHGAP
+                        Determines whether the Head/Tail range is with or
+                        without gap. True means that the Head/Tail range will
+                        be counted with gap. If you input [-r 20000], then the
+                        Head/Tail range will be calculated from both ends
+                        (Head/Tail) to 20000 base, and there may be some gaps
+                        in said range(N base). False means that the Head/Tail
+                        range will count without gap (N base). (default: True)
+  -t THREADS, --threads THREADS
+                        Number of threads you want to use. Input 0 will use
+                        all threads.(default: 1)
+
+```
