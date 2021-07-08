@@ -4,11 +4,47 @@
 
 ## Usage:
 
-basic commands for each module:
+The following are the minimum required commands to run each main module separately:
 
-advanced usage for those wish to use each module flexibly see pdf
+#### 1. LAB Gap Filling:
+```
+  python /opt/10x_program/runStep1to3.py -f raw_fastq_dir/ -g draft.fa --id PROJECTID -a bwa_mem -o 10x_preprocess/
+  /opt/LAB_GapFilling/ProduceBXList.sh -f draft_bwa_mem_C70M60.sam -a draft.fa -o LAB_GapFilling/
+  /opt/LAB_GapFilling/Assemble.sh -r /10x_preprocess/nonDupFq/split -o LAB_GapFilling/
+  /opt/LAB_GapFilling/Fill.sh -a draft.fa -o LAB_GapFilling/
+```
+#### 2. GCB Gap Filling:
+It can be a stand alone module without any 10x Genomics resource.
+```
+  /opt/GCB_GapFilling/Fill.sh -a draft.fa -x g-contigs.fa -o GCB_GapFilling/
+
+```
+#### 3. LAB Scaffolding:
+```
+  #rename draft.fa by length first to fit our format
+  /opt/Rename_byLength.sh -a draft.fa -o LAB_Scaffolding/
+  python /opt/10x_program/runStep1to3.py -f raw_fastq_dir/ -g draft_rename.fa --id PROJECTID -a bwa_mem -o 10x_preprocess/
+  /opt/LAB_Scaffolding/CandidatePair.sh -f draft_bwa_mem_C70M60_ScafA_ScafB_BXCnt.tsv -p draft_bwa_mem_C70M60_ScafHeadTail_BX_pairSum.tsv -o LAB_Scaffolding/
+  /opt/LAB_Scaffolding/Assemble.sh -f draft_bwa_mem_C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv -r 10x_preprocess/nonDupFq/split -o LAB_Scaffolding/
+  /opt/LAB_Scaffolding/Scaffolding.sh -f draft_bwa_mem_C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv -a draft_rename.fa -o LAB_Scaffolding/
+```
+
+#### 4. GCB Scaffolding:
+```
+  #rename draft.fa by length first to fit our format
+  /opt/Rename_byLength.sh -a draft.fa -o GCB_Scaffolding/
+  python /opt/10x_program/runStep1to3.py -f raw_fastq_dir/ -g draft_rename.fa --id PROJECTID -a bwa_mem -o 10x_preprocess/ 
+  /opt/GCB_Scaffolding/CandidatePair.sh -f draft_rename_bwa_mem_C70M60_ScafA_ScafB_BXCnt.tsv -p draft_rename_bwa_mem_C70M60_ScafHeadTail_BX_pairSum.tsv -o GCB_Scaffolding/
+  /opt/GCB_Scaffolding/Scaffolding.sh -f draft_gcbgf_labgf_labs_bwa_mem_C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv -a draft_rename.fa -x g-contigs.fa -o GCB_Scaffolding/
+```
+
+The four main modules can be used in any order and iterated several times. For advanced usage see **TECHNOTES.md**
+
 
 ## Recommended Pipelines & Example Usage:
+In terms of Gap Filling, we recommend applying GCB before LAB to fill in bigger gaps first.
+
+As for Scaffolding, GCB is preferably used after LAB as a polishing tool.
 ### I. 10x Genomics Pipeline
 If you only have 10x Genomics linked reads at hand, we propose this pipeline
 
