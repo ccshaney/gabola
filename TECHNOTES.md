@@ -506,12 +506,15 @@ optional arguments:
 #### *Step I. Collect barcodes for each candidate scaffold end pair*
 
 **Input:**
+
 - Scaffold pair TSV file from Preprocess module step III
 - Barcode list on scaffold ends TSV file from Preprocess module step III
+
 **Output:**
+
 - New directory HeadTail_BXList/:
-  - Barcode list on head and tail for every scaffold (<scafname>_Head/Tail_BXList)
-- Candidate scaffold pair TSV file (C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv)
+  - Barcode list on head and tail for every scaffold *{scafname}_Head/Tail_BXList*
+- Candidate scaffold pair TSV file *C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv*
 
 ```
         usage: /opt/GCB_Scaffolding/CandidatePair.sh
@@ -530,5 +533,52 @@ optional arguments:
         optional arguments:
                -v PAIR_NUM
                   Remove multiple ends, keep top v pairs [default=2]
-  ```
-  
+
+```
+
+#### *Step II. Connect scaffold end pairs*
+
+**Input:**
+
+- Candidate scaffold pair TSV file from Step I
+- Draft Assembly FASTA file
+> sequences have to be named in the format of *scaffold{num}|size{num}*
+- G-contigs FASTA file
+
+**Output:**
+
+- GCB-scaffolded FASTA file 
+> *i.e. {draft_assembly_prefix}_GCBScaffold.fa*
+- GCB-scaffolded FASTA file renamed by length
+> *i.e. {draft_assembly_prefix}_GCBScaffold_rename.fa*
+- NewScaf.log recording new scaffolds connected by GCB-Scaffolding and their components
+- GCBScaffold.log
+
+```
+        usage: /opt/GCB_Scaffolding/Scaffolding.sh
+               -f SCAFFOLD_PAIR -a FASTA -x G_CONTIGS [-l MIN_MAPLEN]
+               [-c MIN_MAPIDENTITY] [-t THREADS] [-n NUM] -o OUTDIR
+
+        positional arguments:
+                -f SCAFFOLD_PAIR
+                   Candidate scaffold pairs and shared barcode counts
+                   (C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv)
+                -a FASTA
+                   Draft assembly for GCB scaffolding
+                -x G_CONTIGS
+                   Scaffolds/contigs from other assemblies or long reads for filling in gaps
+                -o OUTDIR
+                   Output directory (same as Preprocessing.sh)
+
+        optional arguments:
+                -l MIN_MAPLEN
+                   Minimum mapped length for contig on each scaffold end [default=1000]
+                -c MIN_MAPIDENTITY
+                   Mapping identity for contigs on each scaffold end [default=70]
+                -t THREADS
+                   Number of tasks/scaffold pairs per run;
+                   depending on how many available CPUs [default=40]
+                -n NUM
+                   Process top n scaffold end pairs [default=2000]
+
+```
