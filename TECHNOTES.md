@@ -256,8 +256,47 @@ optional arguments:
 
 - Directory for each scaffold containing:
   - Position of reads mapped onto this scaffold 
-  > C70M60ReadPos.tsv
-> Position of gaps on this scaffold (gap_pos_<scafname>.txt)
-> Barcode list of each gap (gapRange_BXs.txt)
--   ProduceBXList_Record.log
+  > File name ends with *C70M60ReadPos.tsv*
+  - Position of gaps on this scaffold
+  > File name: *gap_pos_{scafname}.txt*
+  - Barcode list of each gap
+  > File name: *gapRange_BXs.txt*
+-  ProduceBXList_Record.log
+
+```
+        Usage: /opt/LAB_GapFilling/ProduceBXList.sh -f SAMFILE -a FASTA -o OUTDIR [-n NUM ]
+        [-t THREADS] [-rp MIN_READPAIR_onScaf] [-b BarcodeNonDupReadPairCnt.txt ] [-q  JobQueue]
+        [-c MIN_BarcodeList ] [-s MIN_READPAIR_onGap]
+
+        positional arguments:
+                -f SAMFILE
+                   High quality read-to-scaffold alignment produced from Preprocess Step II
+                   (C70M60.sam)
+                -a FASTA
+                   Draft assembly with gaps to be filled
+                -o OUTDIR
+                   Output directory
+
+       optional arguments:
+                -n NUM
+                   Only perform Gap Filling on top n scaffolds, [default=ALL]
+                -t THREADS
+                   Number of threads [default=16]
+                -rp MIN_READPAIR_onScaf
+                   Minimum number of read pairs for barcode on scaffold [default=3]
+                -s MIN_READPAIR_onGap
+                   Minimum number of read pair for barcode on gap’s flanking [default=2]
+                -c MIN_BarcodeList
+                   Minimum size of gap’s barcode list [default=10]
+                -b BarcodeNonDupReadPairCnt.txt
+                   BarcodeNonDupReadPairCnt.txt by preprocessing of reads;
+                   only required if there are more than one job queue
+                -q  JobQueue
+                    Number of job queues for gap-filling [default=1]; required if you want to
+                    run GABOLA in parallel on several machines.
+                    For example, if you set the parameter as “-q 3”,
+                    our program will produce three lists: JobList1, JobList2 and JobList3.
+                    Each list containing the gaps to be filled with the format of <scafname><gapID>
+
+```
 
