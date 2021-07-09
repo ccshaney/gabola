@@ -11,8 +11,8 @@
 
 - Non-duplicate, trimmed and filtered FASTQ files for Read 1 and Read 2 separately (NonDupR1.fq and NonDupR2.fq)
 - Directories for every barcode containing their respective reads that are trimmed and filtered (OUTPUT_FOLDER/nonDupFq/split). 
-> For example, Barcode name: AAAACCCCGTGTGTGT
-> Format: OUTPUT_FOLDER/nonDupFq/split/AAAACCCCGTGTGTGT_1
+> For example, Barcode name: AAAACCCCGTGTGTGT.
+> Directory Format: OUTPUT_FOLDER/nonDupFq/split/AAAACCCCGTGTGTGT_1
 ```
 usage: python /opt/10x_program/step1_preprocessFastq.py [-h] -f FASTQS --id PROJECTID -o OUTPUT_FOLDER [-q QUALITY] 
                                                  [-l LENGTH] [--trimr2 {False,True}] [-d NONDUP] [-t THREADS]
