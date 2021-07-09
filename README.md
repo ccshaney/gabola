@@ -1,6 +1,6 @@
 # GABOLA: A Reliable Gap-Filling Strategy for de novo Chromosome-Level Assembly
 
-##### The docker image of GABOLA is freely accessible on [**our dockerhub website**](https://hub.docker.com/r/lsbnb/gabola)
+#### The docker image of GABOLA is freely accessible on [**our dockerhub website**](https://hub.docker.com/r/lsbnb/gabola)
 
 ## Usage:
 
