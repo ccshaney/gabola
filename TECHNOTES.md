@@ -2,6 +2,7 @@
 ### § Preprocess Module:
 
 #### *Step I. Produce non-duplicate split fastqs sorted by barcodes from raw linked reads*
+If you choose to run the three steps of Preprocess module separately: **This step should be performed before running any GABOLA modules**, and it only needs to be run **once** in your entire pipeline.
 
 **Input:**
 
@@ -58,6 +59,7 @@ optional arguments:
 
 ```
 #### *Step II. Filter alignment by CIGAR match quality and MAPQ score*
+If you choose to run the three steps of Preprocess module separately: this step should be performed before running LAB-Gap Filling, LAB-Scaffolding or GCB-Scaffolding.
 
 **Input:**
 
@@ -95,6 +97,7 @@ optional arguments:
                         threads.[default: 1]
 ```
 #### *Step III. Generate barcode information on each scaffold*
+If you choose to run the three steps of Preprocess module separately: this step should be performed before running LAB-Scaffolding or GCB-Scaffolding.
 
 **Input:**
 - Read-to-assembly filtered SAM file from Step II
@@ -245,6 +248,8 @@ optional arguments:
 
 ```
 ### § Main Module 1 - LAB Gap Filling:
+If you choose to run the Preprocess module separately, you have to at least run Preprocess Step II before LAB Gap Filling.
+
 #### *Step I. Produce barcode list for each gap*
 
 **Input:**
@@ -402,6 +407,7 @@ optional arguments:
                       Minimum mapping identity of contigs [default=80]
 ```
 ### § Main Module 3 – LAB Scaffolding:
+If you choose to run the Preprocess module separately, you have to at least run both Preprocess Step II & III before LAB Scaffolding.
 
 #### *Step I. Collect barcodes for each candidate scaffold end pair*
 
@@ -502,6 +508,7 @@ optional arguments:
                   Mapping identity for contigs on each scaffold end [default=70]
 ```
 ## § Main Module 4 – GCB Scaffolding:
+If you choose to run the Preprocess module separately, you have to at least run both Preprocess Step II & III before GCB Scaffolding.
 
 #### *Step I. Collect barcodes for each candidate scaffold end pair*
 
