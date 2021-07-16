@@ -4,7 +4,7 @@
 
 ## Introduction:
 
-GABOLA is an integrated solution of Genome *de novo* Assembly aimed at Precision Medicine and Genome Breeding. The core concept is to fill in both intra and inter-scaffold gaps mainly based on 10x Genomics linked reads. GABOLA is a highly-flexible tool, it can also be used with TGS Sequencing long reads and other Gap-Filling techniques. **In our own experiments, we used [**Supernova assembler**](https://support.10xgenomics.com/de-novo-assembly/software/overview/latest/welcome) first to generate an initial haplotype genome draft. Then, we incorporated Hybrid Scaffold developed by [**Bionano Genomics**]( https://bionanogenomics.com/ ) to expand scaffold lengths before performing GABOLA. Aside from linked reads, we also used long reads obtained from [**PacBio SMRT Sequencing**](https://www.pacb.com/smrt-science/smrt-sequencing/) and [**Oxford Nanopore Technologies**](https://nanoporetech.com/) for gap-filling. The assembly tool for long reads utilized here is [**Canu**](https://github.com/marbl/canu).**
+GABOLA is an integrated solution of Genome *de novo* Assembly aimed at Precision Medicine and Genome Breeding. The core concept is to fill in both intra and inter-scaffold gaps mainly based on 10x Genomics linked reads. GABOLA is a highly-flexible tool, it can also be used with TGS Sequencing long reads and other Gap-Filling techniques. **In our own experiments, we used [**Supernova assembler**](https://support.10xgenomics.com/de-novo-assembly/software/overview/latest/welcome) first to generate an initial haplotype genome draft. Then, we incorporated *Hybrid Scaffold* developed by [**Bionano Genomics**]( https://bionanogenomics.com/ ) to expand scaffold lengths before performing GABOLA. Aside from linked reads, we also used long reads obtained from [**PacBio SMRT Sequencing**](https://www.pacb.com/smrt-science/smrt-sequencing/) and [**Oxford Nanopore Technologies**](https://nanoporetech.com/) for gap-filling. The assembly tool for long reads utilized here is [**Canu**](https://github.com/marbl/canu).**
 
 ## Usage:
 
@@ -52,7 +52,7 @@ As for Scaffolding, GCB is preferably used after LAB as a polishing tool.
 ### I. 10x Genomics Pipeline
 If you only have 10x Genomics linked reads at hand, we propose this pipeline
 
-![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_10x_pipeline_0708.jpg)
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_10x_pipeline_0716.jpg)
 
 ```
        # GCB Gap-Filling
@@ -82,7 +82,7 @@ If you only have 10x Genomics linked reads at hand, we propose this pipeline
 ### II. 10x Genomics & PacBio/ONT Pipeline
 
 If 10x Genomics linked reads and either PacBio or ONT reads (or basically any Third Generation Sequencing long reads) are obtainable, then we suggest this pipeline:
-![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_pipeline_0708.jpg)
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_pipeline_0716.jpg)
 
 ```
        #GCB Gap-Filling 
@@ -113,7 +113,7 @@ If 10x Genomics linked reads and either PacBio or ONT reads (or basically any Th
 ### III. 10x Genomics & Bionano Hybrid Scaffold Pipeline
 
 Pipeline incorporating 10x Genomics linked reads and Bionano Hybrid Scaffold:
-![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_bionano_pipeline_0708.jpg)
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_bionano_pipeline_0716.jpg)
 
 ```
     # GCB Gap-Filling
@@ -141,7 +141,7 @@ Pipeline incorporating 10x Genomics linked reads and Bionano Hybrid Scaffold:
 ```
 ### IV. 10x Genomics & Bionano Hybrid Scaffold & PacBio/ONT Pipeline
 With all resources mentioned above (10x Genomics linked reads, PacBio or ONT reads and Bionano Hybrid Scaffold) available, we suggest this pipeline
-![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_bionano_pipeline_0708.jpg)
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_bionano_pipeline_0716.jpg)
 
 ```
      #GCB Gap-Filling
