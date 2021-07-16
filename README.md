@@ -82,6 +82,7 @@ If you only have 10x Genomics linked reads at hand, we propose this pipeline
 ### II. 10x Genomics & PacBio/ONT Pipeline
 
 If 10x Genomics linked reads and either PacBio or ONT reads (or basically any Third Generation Sequencing long reads) are obtainable, then we suggest this pipeline:
+
 ![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_pipeline_0716.jpg)
 
 ```
@@ -140,7 +141,8 @@ Pipeline incorporating 10x Genomics linked reads and Bionano Hybrid Scaffold:
     /opt/XCB_Scaffolding/Scaffolding.sh -f draft_gcbgf_labgf_labs_bwa_mem_C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv -a draft_gcbgf_labgf_labs_rename.fa -x xeno-contigs.fa -o GCB_Scaffolding/
 ```
 ### IV. 10x Genomics & Bionano Hybrid Scaffold & PacBio/ONT Pipeline
-With all resources mentioned above (10x Genomics linked reads, PacBio or ONT reads and Bionano Hybrid Scaffold) available, we suggest this pipeline
+With all resources mentioned above (10x Genomics linked reads, PacBio or ONT reads and Bionano Hybrid Scaffold) available, we suggest this pipeline:
+
 ![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_bionano_pipeline_0716.jpg)
 
 ```
