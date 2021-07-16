@@ -1,6 +1,10 @@
-# GABOLA: A Reliable Gap-Filling Strategy for de novo Chromosome-Level Assembly
+# GABOLA: A Reliable Gap-Filling Strategy for *de novo* Chromosome-Level Assembly
 
 #### The docker image of GABOLA is freely accessible on [**our dockerhub website**](https://hub.docker.com/r/lsbnb/gabola)
+
+## Introduction:
+
+GABOLA is an integrated solution of Genome *de novo* Assembly aimed at Precision Medicine and Genome Breeding. The core concept is to fill in both intra and inter-scaffold gaps mainly based on 10x Genomics linked reads. GABOLA is a highly-flexible tool, it can also be used with TGS Sequencing long reads and other Gap-Filling techniques. **In our own experiments, we used [**Supernova assembler**](https://support.10xgenomics.com/de-novo-assembly/software/overview/latest/welcome) first to generate an initial haplotype genome draft. Then, we incorporated Hybrid Scaffold developed by [**Bionano Genomics**]( https://bionanogenomics.com/ ) to expand scaffold lengths before performing GABOLA. Aside from linked reads, we also used long reads obtained from [**PacBio SMRT Sequencing**](https://www.pacb.com/smrt-science/smrt-sequencing/) and [**Oxford Nanopore Technologies**](https://nanoporetech.com/) for gap-filling. The assembly tool for long reads utilized here is [**Canu**](https://github.com/marbl/canu).**
 
 ## Usage:
 
@@ -75,9 +79,9 @@ If you only have 10x Genomics linked reads at hand, we propose this pipeline
 
 ```
 
-### II. 10x Genomics & TGS Pipeline
+### II. 10x Genomics & PacBio/ONT Pipeline
 
-If 10x Genomics linked reads and Third Generation Sequencing long reads are both obtainable, then we suggest this pipeline:
+If 10x Genomics linked reads and either PacBio or ONT reads (or basically any Third Generation Sequencing long reads) are obtainable, then we suggest this pipeline:
 ![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_pipeline_0708.jpg)
 
 ```
@@ -106,7 +110,7 @@ If 10x Genomics linked reads and Third Generation Sequencing long reads are both
        /opt/GCB_Scaffolding/Scaffolding.sh -f draft_gcbgf_labgf_labs_bwa_mem_C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv -a draft_gcbgf_labgf_labs_rename.fa -x g-contigs.fa -o GCB_Scaffolding/
 ```
 
-### III. 10x Genomics & Bionano Genomics Pipeline
+### III. 10x Genomics & Bionano Hybrid Scaffold Pipeline
 
 Pipeline incorporating 10x Genomics linked reads and Bionano Hybrid Scaffold:
 ![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_bionano_pipeline_0708.jpg)
@@ -135,8 +139,8 @@ Pipeline incorporating 10x Genomics linked reads and Bionano Hybrid Scaffold:
     ### G-contigs.fa could be the draft assembly or scaffolds that are in conflict with and those unused by the Bionano protocol
     /opt/XCB_Scaffolding/Scaffolding.sh -f draft_gcbgf_labgf_labs_bwa_mem_C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv -a draft_gcbgf_labgf_labs_rename.fa -x xeno-contigs.fa -o GCB_Scaffolding/
 ```
-### IV. 10x Genomics & Bionano Genomics & TGS Pipeline
-With all resources mentioned above (10x Genomics linked reads, TGS reads and Bionano Hybrid Scaffold) available, we suggest this pipeline
+### IV. 10x Genomics & Bionano Hybrid Scaffold & PacBio/ONT Pipeline
+With all resources mentioned above (10x Genomics linked reads, PacBio or ONT reads and Bionano Hybrid Scaffold) available, we suggest this pipeline
 ![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_bionano_pipeline_0708.jpg)
 
 ```
