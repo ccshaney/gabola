@@ -42,9 +42,9 @@ It can be a stand alone module without any 10x Genomics resource.
   /opt/GCB_Scaffolding/Scaffolding.sh -f draft_gcbgf_labgf_labs_bwa_mem_C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv -a draft_rename.fa -x g-contigs.fa -o GCB_Scaffolding/
 ```
 
-The four main modules can be used in any order and iterated several times. For advanced usage see [**TECHNOTES.md**](TECHNOTES.md).
+The four main modules can be used in any order and iterated several times.The source codes are accessible to all.
 
-The source codes are accessible to all.
+For advanced usage see [**TECHNOTES.md**](TECHNOTES.md).
 
 
 ## Recommended Pipelines & Example Usage:
