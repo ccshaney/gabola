@@ -43,6 +43,7 @@ It can be a stand alone module without any 10x Genomics resource.
 ```
 
 The four main modules can be used in any order and iterated several times. For advanced usage see [**TECHNOTES.md**](TECHNOTES.md)
+The source codes are accessible to all.
 
 
 ## Recommended Pipelines & Example Usage:
