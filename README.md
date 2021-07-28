@@ -89,8 +89,8 @@ If 10x Genomics linked reads and either PacBio or ONT reads (or basically any Th
 
 ```
        #GCB Gap-Filling 
-       ### If draft.fa is Supernova draft assembly, we recommend you use TGS long reads or TGS draft assembly as g-contigs.fa
-       ### If draft.fa is TGS draft assembly, we recommend you use Supernova draft assembly or unused TGS long reads as g-contigs.fa
+       ### If draft.fa is Supernova draft assembly, we recommend you use PacBio/ONT reads or Canu draft assembly as g-contigs.fa
+       ### If draft.fa is Canu draft assembly, we recommend you use Supernova draft assembly or unused PacBio/ONT reads as g-contigs.fa
        /opt/GCB_GapFilling/Fill.sh -a draft.fa -x g-contigs.fa -o GCB_GapFilling/ 
 
        #LAB Gap-Filling
@@ -106,8 +106,8 @@ If 10x Genomics linked reads and either PacBio or ONT reads (or basically any Th
        /opt/LAB_Scaffolding/Scaffolding.sh -f draft_gcbgf_labgf_bwa_mem_C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv -a draft_gcbgf_labgf.fa -o LAB_Scaffolding/
 
        #GCB Scaffolding
-       ### If draft.fa is Supernova draft assembly, we recommend you use TGS long reads or scaffolds from TGS draft assembly that weren’t used in GCB Gap Filling as g-contigs.fa
-       ### If draft.fa is TGS draft assembly, we recommend you use Supernova draft assembly or unused TGS long reads as g-contigs.fa
+       ### If draft.fa is Supernova draft assembly, we recommend you use PacBio/ONT reads or scaffolds from Canu draft assembly that weren’t used in GCB Gap Filling as g-contigs.fa
+       ### If draft.fa is Canu draft assembly, we recommend you use Supernova draft assembly or unused PacBio/ONT reads as g-contigs.fa
        python /opt/10x_program/runStep1to3.py -f raw_fastq_dir/ -g draft_gcbgf_labgf_labs_rename.fa --id PROJECTID -a bwa_mem -o 10x_preprocess/ 
        /opt/GCB_Scaffolding/CandidatePair.sh -f draft_gcbgf_labgf_labs_bwa_mem_C70M60_ScafA_ScafB_BXCnt.tsv -p draft_gcbgf_labgf_bwa_mem_C70M60_ScafHeadTail_BX_pairSum.tsv -o GCB_Scaffolding/
        /opt/GCB_Scaffolding/Scaffolding.sh -f draft_gcbgf_labgf_labs_bwa_mem_C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv -a draft_gcbgf_labgf_labs_rename.fa -x g-contigs.fa -o GCB_Scaffolding/
@@ -171,4 +171,17 @@ With all resources mentioned above (10x Genomics linked reads, PacBio or ONT rea
      /opt/GCB_Scaffolding/CandidatePair.sh -f draft_gcbgf_labgf_labs_bwa_mem_C70M60_ScafA_ScafB_BXCnt.tsv -p draft_gcbgf_labgf_bwa_mem_C70M60_ScafHeadTail_BX_pairSum.tsv -o XCB_Scaffolding/
      ### Since unused and conflict scaffolds were already added back to the draft assembly. G-contigs.fa could be TGS long reads or scaffolds of draft assembly that weren’t used in GCB Gap Filling
      /opt/GCB_Scaffolding/Scaffolding.sh -f draft_gcbgf_labgf_labs_bwa_mem_C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv -a draft_gcbgf_labgf_labs_rename.fa -x g-contigs.fa -o GCB_Scaffolding/
+```
+### V. PacBio/ONT Pipeline:
+You can also run GABOLA without 10x Genomic linked reads. GCB Gap Filling is a module fit for optimizing genome assemblies with PacBio or Nanopore reads.
+The pipeline suggested below is simplified, different assembling or polishing tools can be performed in between iterations of GCB Gap Filling. 
+
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_pipeline_0729.jpg)
+
+```
+       #GCB Gap-Filling 
+       ### Unused PacBio/ONT reads as g-contigs.fa
+       /opt/GCB_GapFilling/Fill.sh -a draft.fa -x g-contigs.fa -o GCB_GapFilling/ 
+       
+       #Filter out used PacBio/ONT reads and perform GCB Gap-Filling again with those unused
 ```
