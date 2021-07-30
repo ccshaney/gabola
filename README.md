@@ -85,7 +85,7 @@ If you only have 10x Genomics linked reads at hand, we propose this pipeline
 
 If 10x Genomics linked reads and either PacBio or ONT reads (or basically any Third Generation Sequencing long reads) are obtainable, then we suggest this pipeline:
 
-![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_10x_tgs_pipeline_0730.jpg)
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_10x_tgs_pipeline_0730_0.jpg)
 
 ```
        #GCB Gap-Filling 
