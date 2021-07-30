@@ -97,7 +97,7 @@ optional arguments:
                         threads.[default: 1]
 ```
 #### *Step III. Generate barcode information on each scaffold*
-If you choose to run the three steps of Preprocess module separately: this step should be performed before running LAB-Scaffolding or GCB-Scaffolding.
+If you choose to run the three steps of Preprocess module separately: this step should be performed before running LCB-Scaffolding or GCB-Scaffolding.
 
 **Input:**
 - Read-to-assembly filtered SAM file from Step II
@@ -247,8 +247,8 @@ optional arguments:
                         program will generate BX1 to BX20*. [default:20]
 
 ```
-### § Main Module 1 - LAB Gap Filling:
-If you choose to run the Preprocess module separately, you have to at least run Preprocess Step II before LAB Gap Filling.
+### § Main Module 1 - LCB Gap Filling:
+If you choose to run the Preprocess module separately, you have to at least run Preprocess Step II before LCB Gap Filling.
 
 #### *Step I. Produce barcode list for each gap*
 
@@ -269,7 +269,7 @@ If you choose to run the Preprocess module separately, you have to at least run 
 -  ProduceBXList_Record.log
 
 ```
-        Usage: /opt/LAB_GapFilling/ProduceBXList.sh -f SAMFILE -a FASTA -o OUTDIR [-n NUM ]
+        Usage: /opt/LCB_GapFilling/ProduceBXList.sh -f SAMFILE -a FASTA -o OUTDIR [-n NUM ]
         [-t THREADS] [-rp MIN_READPAIR_onScaf] [-b BarcodeNonDupReadPairCnt.txt ] [-q  JobQueue]
         [-c MIN_BarcodeList ] [-s MIN_READPAIR_onGap]
 
@@ -316,7 +316,7 @@ If you choose to run the Preprocess module separately, you have to at least run 
 > i.e. *scaffolds_gapID.fasta*
 - Assemble_JobID_Record.log
 ```
-        Usage: /opt/LAB_GapFilling/Assemble.sh -r FASTQ [-t THREADS] [-q JobQueue_NUM ] -o OUTDIR
+        Usage: /opt/LCB_GapFilling/Assemble.sh -r FASTQ [-t THREADS] [-q JobQueue_NUM ] -o OUTDIR
 
               positional arguments:
                          -r FASTQ
@@ -339,12 +339,12 @@ If you choose to run the Preprocess module separately, you have to at least run 
 
 **Output**
 
-- Gap-filled FASTA file
-> *i.e. {draft_assembly_prefix}_LABFilled.fa*
-- LABFill_Record.log
+- LCB Gap-filled FASTA file
+> *i.e. {draft_assembly_prefix}_LCBFilled.fa*
+- LCBFill_Record.log
 
 ```
-        usage: /opt/LAB_GapFilling/Fill.sh -a FASTA [-n NUM ] [-t THREADS ] [-l MIN_LEN]
+        usage: /opt/LCB_GapFilling/Fill.sh -a FASTA [-n NUM ] [-t THREADS ] [-l MIN_LEN]
         [-c MIN_COV] [-d MAX_DIS] [-M MIN_MAPLEN] [-I MIN_MAPIDENTITY] -o OUTDIR
 
         positional arguments:
@@ -387,13 +387,13 @@ If you choose to run the Preprocess module separately, you have to at least run 
 > File name as *{draft_assembly_prefix}_GCBFilled.fasta*
 
 ```
-        usage: /opt/GCB_GapFilling/Fill.sh -a FASTA -x G_CONTIGS [-t THREADS] -o OUTDIR
+        usage: /opt/GCB_GapFilling/Fill.sh -a FASTA -g G_CONTIGS [-t THREADS] -o OUTDIR
         [-M MIN_MAPLEN] [-I MIN_MAPIDENTITY]
 
         positional arguments:
                    -a FASTA
                       Draft assembly FASTA file to be filled
-                   -x G_CONTIGS
+                   -g G_CONTIGS
                       Scaffolds/contigs from other assemblies or long reads for filling in gaps
                    -o OUTDIR
                       Output directory
@@ -406,8 +406,8 @@ If you choose to run the Preprocess module separately, you have to at least run 
                    -I MIN_MAPIDENTITY
                       Minimum mapping identity of contigs [default=80]
 ```
-### § Main Module 3 – LAB Scaffolding:
-If you choose to run the Preprocess module separately, you have to at least run both Preprocess Step II & III before LAB Scaffolding.
+### § Main Module 3 – LCB Scaffolding:
+If you choose to run the Preprocess module separately, you have to at least run both Preprocess Step II & III before LCB Scaffolding.
 
 #### *Step I. Collect barcodes for each candidate scaffold end pair*
 
@@ -423,7 +423,7 @@ If you choose to run the Preprocess module separately, you have to at least run 
  > File name ends with *C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv*
 
 ```
-        usage: /opt/LAB_Scaffolding/CandidatePair.sh
+        usage: /opt/LCB_Scaffolding/CandidatePair.sh
                -f SCAFFOLD_PAIR -p BXLIST [-v PAIR_NUM] -o OUTDIR
 
         positional arguments:
@@ -454,7 +454,7 @@ If you choose to run the Preprocess module separately, you have to at least run 
   - FASTA file of assembled contigs
 - Assemble.log 
 ```
-        usage: /opt/LAB_Scaffolding/Assemble.sh
+        usage: /opt/LCB_Scaffolding/Assemble.sh
                -f SCAFFOLD_PAIR -r FASTQ [-t THREADS] [-n NUM] -o OUTDIR
 
         positional arguments:
@@ -482,14 +482,14 @@ If you choose to run the Preprocess module separately, you have to at least run 
  
 **Output:**
 
-- LAB-scaffolded FASTA file
-> i.e. *{draft_assembly_prefix}_LABScaffold.fa*
-- LAB-scaffolded FASTA file renamed by length
-> i.e. *{draft_assembly_prefix}_LABScaffold_rename.fa*
+- LCB-scaffolded FASTA file
+> i.e. *{draft_assembly_prefix}_LCBScaffold.fa*
+- LCB-scaffolded FASTA file renamed by length
+> i.e. *{draft_assembly_prefix}_LCBScaffold_rename.fa*
 - NewScaf.log recording new scaffolds connected by LAB Scaffolding and their components
-- LABScaffold.log
+- LCBScaffold.log
 ```
-        usage: /opt/LAB_Scaffolding/Scaffolding.sh
+        usage: /opt/LCB_Scaffolding/Scaffolding.sh
                -f SCAFFOLD_PAIR -a FASTA [-l MIN_MAPLEN] [-c MIN_MAPIDENTITY] -o OUTDIR
 
         positional arguments:
@@ -563,7 +563,7 @@ If you choose to run the Preprocess module separately, you have to at least run 
 
 ```
         usage: /opt/GCB_Scaffolding/Scaffolding.sh
-               -f SCAFFOLD_PAIR -a FASTA -x G_CONTIGS [-l MIN_MAPLEN]
+               -f SCAFFOLD_PAIR -a FASTA -g G_CONTIGS [-l MIN_MAPLEN]
                [-c MIN_MAPIDENTITY] [-t THREADS] [-n NUM] -o OUTDIR
 
         positional arguments:
