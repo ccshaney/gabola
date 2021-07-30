@@ -54,7 +54,7 @@ As for Scaffolding, GCB is preferably used after LCB as a polishing tool.
 ### I. 10x Genomics Pipeline
 If you only have 10x Genomics linked reads at hand, we propose this pipeline
 
-![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_10x_pipeline_0716.jpg)
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_10x_pipeline_0730.jpg)
 
 ```
        # GCB Gap-Filling
@@ -85,7 +85,7 @@ If you only have 10x Genomics linked reads at hand, we propose this pipeline
 
 If 10x Genomics linked reads and either PacBio or ONT reads (or basically any Third Generation Sequencing long reads) are obtainable, then we suggest this pipeline:
 
-![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_pipeline_0716.jpg)
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_10x_tgs_pipeline_0730.jpg)
 
 ```
        #GCB Gap-Filling 
@@ -116,7 +116,7 @@ If 10x Genomics linked reads and either PacBio or ONT reads (or basically any Th
 ### III. 10x Genomics & Bionano Hybrid Scaffold Pipeline
 
 Pipeline incorporating 10x Genomics linked reads and Bionano Hybrid Scaffold:
-![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_bionano_pipeline_0716.jpg)
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_bionano_pipeline_0730.jpg)
 
 ```
     # GCB Gap-Filling
@@ -137,7 +137,7 @@ Pipeline incorporating 10x Genomics linked reads and Bionano Hybrid Scaffold:
     /opt/LCB_Scaffolding/Scaffolding.sh -f draft_gcbgf_lcbgf_bwa_mem_C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv -a draft_gcbgf_lcbgf.fa -o LCB_Scaffolding/
 
     #GCB Scaffolding
-    python /opt/10x_program/runStep1to3.py -f raw_fastq_dir/ -g draft_xcbgf_lcbgf_lcbs_rename.fa --id PROJECTID -a bwa_mem -o 10x_preprocess/ 
+    python /opt/10x_program/runStep1to3.py -f raw_fastq_dir/ -g draft_gcbgf_lcbgf_lcbs_rename.fa --id PROJECTID -a bwa_mem -o 10x_preprocess/ 
     /opt/XCB_Scaffolding/CandidatePair.sh -f draft_gcbgf_lcbgf_lcbs_bwa_mem_C70M60_ScafA_ScafB_BXCnt.tsv -p draft_gcbgf_lcbgf_lcbs_bwa_mem_C70M60_ScafHeadTail_BX_pairSum.tsv -o GCB_Scaffolding/
     ### G-contigs.fa could be the draft assembly or scaffolds that are in conflict with and those unused by the Bionano protocol
     /opt/GCB_Scaffolding/Scaffolding.sh -f draft_gcbgf_lcbgf_lcbs_bwa_mem_C70M60_ScafA_ScafB_BXCnt_rmMultiEnd.tsv -a draft_gcbgf_lcbgf_lcbs_rename.fa -g g-contigs.fa -o GCB_Scaffolding/
@@ -145,7 +145,7 @@ Pipeline incorporating 10x Genomics linked reads and Bionano Hybrid Scaffold:
 ### IV. 10x Genomics & Bionano Hybrid Scaffold & PacBio/ONT Pipeline
 With all resources mentioned above (10x Genomics linked reads, PacBio or ONT reads and Bionano Hybrid Scaffold) available, we suggest this pipeline:
 
-![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_bionano_pipeline_0716.jpg)
+![alt text](https://eln.iis.sinica.edu.tw/lims/files/users/ccshaney/gabola-gabola_tgs_bionano_pipeline_0730.jpg)
 
 ```
      #GCB Gap-Filling
