@@ -59,7 +59,7 @@ optional arguments:
 
 ```
 #### *Step II. Filter alignment by CIGAR match quality and MAPQ score*
-If you choose to run the three steps of Preprocess module separately: this step should be performed before running LAB-Gap Filling, LAB-Scaffolding or GCB-Scaffolding.
+If you choose to run the three steps of Preprocess module separately: this step should be performed before running LAB-Gap Filling, LCB-Scaffolding or GCB-Scaffolding.
 
 **Input:**
 
